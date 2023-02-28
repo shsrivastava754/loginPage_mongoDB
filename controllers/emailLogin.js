@@ -8,22 +8,26 @@ const emailLogin = (req, res) => {
 };
 
 const postEmail = async (req, res) => {
-  let email = req.body.email;
-  let password = req.body.password;
-
-  let usersData = await EmailService.getWithEmail(email);
-
-  if (usersData) {
-    let verified = bcrypt.compareSync(password, usersData.password);
-    if (verified) {
-      res.sendFile(path.join(__dirname, "../views/index.html"));
+  try {
+    let email = req.body.email;
+    let password = req.body.password;
+  
+    let usersData = await EmailService.getWithEmail(email);
+  
+    if (usersData) {
+      let verified = bcrypt.compareSync(password, usersData.password);
+      if (verified) {
+        res.sendFile(path.join(__dirname, "../views/index.html"));
+      } else {
+        alert("Password Mismatch");
+        res.sendFile(path.join(__dirname, "../views/email.html"));
+      }
     } else {
-      alert("Password Mismatch");
+      alert("Email does not exists");
       res.sendFile(path.join(__dirname, "../views/email.html"));
     }
-  } else {
-    alert("Email does not exists");
-    res.sendFile(path.join(__dirname, "../views/email.html"));
+  } catch (error) {
+    throw Error(error);
   }
 };
 

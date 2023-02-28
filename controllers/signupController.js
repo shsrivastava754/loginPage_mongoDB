@@ -8,24 +8,28 @@ const signup = (req, res) => {
 };
 
 const register = async (req, res) => {
-  let username = req.body.username;
-  let email = req.body.email;
-  let password = req.body.password;
-
-  let saltRounds = 10;
-  let hashedPass = bcrypt.hashSync(password, saltRounds);
-
-  const newUser = new Users({
-    email: email,
-    username: username,
-    password: hashedPass
-  });
-
-  const result = await newUser.save();
-  if(result){
-    res.sendFile(path.join(__dirname, "../views/registerSuccessfull.html"));
-  }else{
-    res.send("Some Error");
+  try {
+    let username = req.body.username;
+    let email = req.body.email;
+    let password = req.body.password;
+  
+    let saltRounds = 10;
+    let hashedPass = bcrypt.hashSync(password, saltRounds);
+  
+    const newUser = new Users({
+      email: email,
+      username: username,
+      password: hashedPass
+    });
+  
+    const result = await newUser.save();
+    if(result){
+      res.sendFile(path.join(__dirname, "../views/registerSuccessfull.html"));
+    }else{
+      res.send("Some Error");
+    }
+  } catch (error) {
+    throw Error(error);
   }
 };
 

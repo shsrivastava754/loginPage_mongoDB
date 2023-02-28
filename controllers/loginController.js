@@ -9,24 +9,29 @@ const login = (req, res) => {
 };
 
 const postLogin = async (req, res) => {
-  let username = req.body.username;
-  let password = req.body.password;
-
-  // let usersData = await EmailService.getWithUsername(username);
-  let usersData = await Users.findOne({ username: username });
-
-  if (usersData) {
-    let verified = bcrypt.compareSync(password, usersData.password);
-    if (verified) {
-      res.sendFile(path.join(__dirname, "../views/index.html"));
+  try {
+    let username = req.body.username;
+    let password = req.body.password;
+  
+    // let usersData = await EmailService.getWithUsername(username);
+    let usersData = await Users.findOne({ username: username });
+  
+    if (usersData) {
+      let verified = bcrypt.compareSync(password, usersData.password);
+      if (verified) {
+        res.sendFile(path.join(__dirname, "../views/index.html"));
+      } else {
+        alert("Password Mismatch");
+        res.sendFile(path.join(__dirname, "../views/login.html"));
+      }
     } else {
-      alert("Password Mismatch");
+      alert("Username does not exists");
       res.sendFile(path.join(__dirname, "../views/login.html"));
     }
-  } else {
-    alert("Username does not exists");
-    res.sendFile(path.join(__dirname, "../views/login.html"));
+  } catch (error) {
+    throw Error(error);
   }
+  
 };
 
 module.exports.login = login;

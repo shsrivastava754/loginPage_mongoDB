@@ -14,8 +14,16 @@ mongoose
   });
 
 const dbScehma = new mongoose.Schema({
-  email: String,
-  username: String,
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
   password: String,
 });
 

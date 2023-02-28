@@ -15,10 +15,10 @@
 
     <form class="loginForm" action="/loginPost" method="POST">
         <div class="mainForm">
-            <input type="text" placeholder="Enter username" class="username" name="username" id="username" required>
-            <input type="password" placeholder="Enter Password" name="password" id="password" required>
-            <!-- <span class="fa-sharp fa-solid fa-eye toggle" id="toggle" onclick="handleToggle()"></span> -->
-            <button type="submit" class="submitBtn">Login</button>
+            <input type="text" placeholder="Enter username" class="username" name="username" id="username" onkeyup="checkForm()">
+            <input type="password" placeholder="Enter Password" name="password" id="password" onkeyup="checkForm()">
+            <span class="fa-sharp fa-solid fa-eye toggle" id="toggle" onclick="handleToggle()"></span>
+            <button type="submit" class="submitBtn" id="submitBtn" disabled>Login</button>
 
             <p>New user? <a href="/signup">Register Here</a></p>
             <a href="/emailLogin" class="loginMethod"><i class="fa-solid fa-envelope"></i>Email Login</a>
@@ -26,6 +26,36 @@
     </form>
 
     <!-- <script src="script.js"></script> -->
+
+    <script>
+        const btn = document.getElementById("submitBtn");
+
+        const checkForm = (e)=>{
+            btn.setAttribute('disabled','');
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if((username.length)&&(password.length)){
+                btn.removeAttribute('disabled');
+            }
+        };
+
+        const handleToggle = ()=> {
+            let pass = document.getElementById("password");
+            let toggleBtn = document.getElementById("toggle");
+            let currentType = pass.getAttribute("type");
+        
+            if (currentType === "password") {
+            pass.setAttribute("type", "text");
+            toggleBtn.setAttribute("class", "fa-solid fa-eye-slash");
+        
+            } else {
+            pass.setAttribute("type", "password");
+            toggleBtn.setAttribute("class", "fa-sharp fa-solid fa-eye toggle");
+            }
+        };
+
+    </script>
     <script src="https://kit.fontawesome.com/63bbcc9489.js" crossorigin="anonymous"></script>
 </body>
 </html>

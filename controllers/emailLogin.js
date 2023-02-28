@@ -1,7 +1,7 @@
 const path = require("path");
 const bcrypt = require("bcrypt");
 const alert = require("alert");
-const Users = require('../models/users');
+const EmailService = require("../services/LoginService");
 
 const emailLogin = (req, res) => {
   res.sendFile(path.join(__dirname, "../views/email.html"));
@@ -11,7 +11,7 @@ const postEmail = async (req, res) => {
   let email = req.body.email;
   let password = req.body.password;
 
-  let usersData = await Users.findOne({email:email});
+  let usersData = await EmailService.getWithEmail(email);
 
   if (usersData) {
     let verified = bcrypt.compareSync(password, usersData.password);
@@ -27,5 +27,4 @@ const postEmail = async (req, res) => {
   }
 };
 
-module.exports.emailLogin = emailLogin;
-module.exports.postEmail = postEmail;
+module.exports = { emailLogin, postEmail };

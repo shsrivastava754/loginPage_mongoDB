@@ -4,14 +4,12 @@
     padding: 0;
     text-decoration: none;
     font-family: 'Roboto', sans-serif;
-    /* background-color: rgb(229, 235, 239); */
     background-color: #000000;
 }
 
 h1 {
     text-align: center;
     margin-top: 3rem;
-    /* color: rgb(39, 107, 165); */
     color: #39AEA9;
 }
 
@@ -76,7 +74,7 @@ form button.submitBtn {
     font-weight: 600;
 }
 
-form button.submitBtn:hover {
+form button.submitBtn:hover:enabled {
     color: #39AEA9;
     background-color: #000000;
     cursor: pointer;
@@ -85,6 +83,12 @@ form button.submitBtn:hover {
 
 .loginForm button.submitBtn {
     margin-top: 5rem;
+}
+
+.submitBtn:disabled,
+.submitBtn[disabled]{
+  background-color: #dcd5d5;
+  color: #666666;
 }
 
 .registerForm p {

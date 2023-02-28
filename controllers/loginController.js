@@ -1,6 +1,6 @@
 const path = require("path");
 const bcrypt = require("bcrypt");
-const fs = require("fs");
+// const EmailService = require("../services/LoginService");
 const alert = require("alert");
 const Users = require('../models/users');
 
@@ -12,7 +12,8 @@ const postLogin = async (req, res) => {
   let username = req.body.username;
   let password = req.body.password;
 
-  let usersData = await Users.findOne({username:username});
+  // let usersData = await EmailService.getWithUsername(username);
+  let usersData = await Users.findOne({ username: username });
 
   if (usersData) {
     let verified = bcrypt.compareSync(password, usersData.password);

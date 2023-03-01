@@ -16,26 +16,58 @@
     <form class="loginForm" action="/loginPost" method="POST">
         <div class="mainForm">
             <input type="text" placeholder="Enter username" class="username" name="username" id="username" onkeyup="checkForm()">
+            <input type="email" placeholder="Enter email" class="email" name="email" id="email" onkeyup="checkForm()">
             <input type="password" placeholder="Enter Password" name="password" id="password" onkeyup="checkForm()">
             <span class="fa-sharp fa-solid fa-eye toggle" id="toggle" onclick="handleToggle()"></span>
             <button type="submit" class="submitBtn" id="submitBtn" disabled>Login</button>
 
             <p>New user? <a href="/signup">Register Here</a></p>
-            <a href="/emailLogin" class="loginMethod"><i class="fa-solid fa-envelope"></i>Email Login</a>
+            <a href="#" class="loginMethod" id="emailLogin" onclick="emailLogin()"><i class="fa-solid fa-envelope"></i>Email Login</a>
+            <a href="#" class="loginMethod" id="usernameLogin" onclick="usernameLogin()"><i class="fa-solid fa-envelope"></i>Username Login</a>
         </div>
     </form>
 
-    <!-- <script src="script.js"></script> -->
 
     <script>
         const btn = document.getElementById("submitBtn");
+
+        const emailLogin = (e)=>{
+            event.preventDefault();
+
+            let showIt = document.getElementById('usernameLogin');
+            let hideIt = document.getElementById('emailLogin');
+            let emailInput = document.getElementById('email');
+            let usernameInput = document.getElementById('username');
+            
+            usernameInput.style.display = "none";
+            hideIt.style.display = "none";
+
+            emailInput.style.display = "block";
+            showIt.style.display = "block";
+        }
+
+        const usernameLogin = (e)=>{
+            event.preventDefault();
+
+            let showIt = document.getElementById('emailLogin');
+            let hideIt = document.getElementById('usernameLogin');
+            let emailInput = document.getElementById('email');
+            let usernameInput = document.getElementById('username');
+            
+            emailInput.style.display = "none";
+            hideIt.style.display = "none";
+
+            usernameInput.style.display = "block";
+            showIt.style.display = "block";
+        }
 
         const checkForm = (e)=>{
             btn.setAttribute('disabled','');
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
+            const email = document.getElementById('email').value
 
-            if((username.length)&&(password.length)){
+            if(((username.length)||(email.length))&&(password.length)){
                 btn.removeAttribute('disabled');
             }
         };

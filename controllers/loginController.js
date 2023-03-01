@@ -1,8 +1,7 @@
 const path = require("path");
 const bcrypt = require("bcrypt");
-// const EmailService = require("../services/LoginService");
+const LoginService = require("../services/LoginService");
 const alert = require("alert");
-const Users = require('../models/users');
 
 const login = (req, res) => {
   res.sendFile(path.join(__dirname, "../views/login.html"));
@@ -12,9 +11,9 @@ const postLogin = async (req, res) => {
   try {
     let username = req.body.username;
     let password = req.body.password;
+    let email = req.body.email;
   
-    // let usersData = await EmailService.getWithUsername(username);
-    let usersData = await Users.findOne({ username: username });
+    let usersData = email.length==0 ? await LoginService.getWithUsername(username) : await LoginService.getWithEmail(email);
   
     if (usersData) {
       let verified = bcrypt.compareSync(password, usersData.password);

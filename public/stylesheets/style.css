@@ -60,6 +60,14 @@ input {
     font-size: 1.4rem;
 }
 
+.loginForm input.email{
+    display: none;
+}
+
+.loginForm #usernameLogin{
+    display: none;
+}
+
 form button.submitBtn {
     width: 80%;
     margin-top: 30px;

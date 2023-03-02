@@ -30,7 +30,6 @@ const postLogin = async (req, res) => {
   } catch (error) {
     throw Error(error);
   }
-  
 };
 
 module.exports.login = login;
